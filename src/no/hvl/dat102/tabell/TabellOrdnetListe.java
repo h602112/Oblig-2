@@ -120,7 +120,16 @@ public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 	private int finn(T el) {
 		int i = 0, resultat = IKKE_FUNNET;
 		// ...Fyll ut
-		return resultat;
+		int mid = ((bak-0) / 2);
+		if (liste[mid].equals(el)) {
+			return mid;
+		} else if (el.compareTo(liste[mid]) < mid) {
+			mid -= 1;
+			return finn(el);
+		} else {
+			mid += 1;
+			return finn(el);
+		}
 	}
 
 	public String toString() {
