@@ -82,8 +82,16 @@ public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 
 	@Override
 	public void leggTil(T element) {
-
-		// ...Fyll ut
+		if (bak == liste.length) {
+			utvid();
+		}
+		for (int i = 0; i < bak && element.compareTo(liste[i]) > 0; i++) {
+			for (int j = bak; j > i; j--) {
+				liste[j] = liste[j-1];
+			}
+			liste[i] = element;
+			bak++;
+		}
 	}
 
 	@Override
