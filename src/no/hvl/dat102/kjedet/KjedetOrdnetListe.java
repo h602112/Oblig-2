@@ -103,11 +103,13 @@ public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 			current = current.getNeste();
 		}
 		if (previous == null) {
-			newNode.setNeste(foerste.getNeste()); // Isak
+			newNode.setNeste(foerste != null ? foerste.getNeste() : null);
 			foerste = newNode;
+			antall++;
 		} else {
-			newNode.setNeste(previous.getNeste()); // Isak
-			previous.setNeste(newNode); // Isak
+			newNode.setNeste(previous.getNeste());
+			previous.setNeste(newNode);
+			antall++;
 			//previous.getNeste() = newNode;
 		}
 		//LinearNode<T> node = newNode.getNeste();// = current.getNeste();

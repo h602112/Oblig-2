@@ -85,13 +85,16 @@ public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 		if (bak == liste.length) {
 			utvid();
 		}
-		for (int i = 0; i < bak && element.compareTo(liste[i]) > 0; i++) {
-			for (int j = bak; j > i; j--) {
-				liste[j] = liste[j-1];
-			}
-			liste[i] = element;
-			bak++;
+		int i = 0;
+		while (i < bak && element.compareTo(liste[i]) > 0) {
+			i++;
 		}
+		for(int j = bak+1; j > i; j--) {
+			liste[j] = liste[j-1];
+		}
+		liste[i] = element;
+		bak++;
+
 	}
 
 	@Override
@@ -120,16 +123,34 @@ public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 	private int finn(T el) {
 		int i = 0, resultat = IKKE_FUNNET;
 		// ...Fyll ut
-		int mid = ((bak-0) / 2);
-		if (liste[mid].equals(el)) {
-			return mid;
-		} else if (el.compareTo(liste[mid]) < mid) {
-			mid -= 1;
-			return finn(el);
-		} else {
-			mid += 1;
-			return finn(el);
+		if (foerste() == null) {
+			return 0;
 		}
+		int mid = ((bak) / 2);
+		int stoerste = bak;
+		boolean run = true;
+		while (run && el != null) {
+			if(el.compareTo(liste[i]) == 0){
+				run =  false;
+				resultat = i;
+			}else if(el.compareTo(liste[i]) < 0){
+				run = false;
+			}
+			i++;
+			/* Forsøk på en binærsøk løsning
+			if (liste[mid].equals(el)) {
+				resultat = mid;
+			} else if (el.compareTo(liste[mid]) < 0) {
+				stoerste = mid;
+				mid /= 2;
+
+			} else {
+				mid = stoerste-mid / 2;
+			}
+
+			 */
+		}
+		return resultat;
 	}
 
 	public String toString() {
